@@ -107,12 +107,6 @@ FetchContent_Declare(
         URL https://github.com/nlohmann/json/releases/download/v3.7.3/include.zip
 )
 
-FetchContent_Declare(
-        sqlite3
-        GIT_REPOSITORY https://github.com/alex85k/sqlite3-cmake.git
-        GIT_TAG v3.24.0
-)
-
 # Adds nlohmann_json library.
 FetchContent_GetProperties(nlohmann_json)
 if (NOT nlohmann_json_POPULATED)
@@ -120,6 +114,12 @@ if (NOT nlohmann_json_POPULATED)
     add_library(nlohmann_json INTERFACE)
     target_include_directories(nlohmann_json INTERFACE ${nlohmann_json_SOURCE_DIR}/single_include)
 endif ()
+
+FetchContent_Declare(
+        sqlite3
+        GIT_REPOSITORY https://github.com/alex85k/sqlite3-cmake.git
+        GIT_TAG v3.24.0
+)
 
 # Adds sqlite3
 FetchContent_GetProperties(sqlite3)

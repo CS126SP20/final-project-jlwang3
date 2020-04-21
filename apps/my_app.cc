@@ -9,6 +9,8 @@ namespace myapp {
 
 using cinder::app::KeyEvent;
 
+const char kDbPath[] = "final_project.db";
+
 MyApp::MyApp() { }
 
 void MyApp::setup() { }
