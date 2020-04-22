@@ -4,9 +4,13 @@
 
 #ifndef FINALPROJECT_PIECE_H
 #define FINALPROJECT_PIECE_H
+
+#include <vector>
+#include <mylibrary/segment.h>
 namespace mylibrary {
     class Piece {
-
+    private:
+        std::vector<Segment> piece_;
     };
 }
 #endif //FINALPROJECT_PIECE_H
