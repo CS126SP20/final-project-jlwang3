@@ -19,7 +19,7 @@ namespace mylibrary {
     }
 
     void LeaderBoard::AddScoreToLeaderBoard(const Player& player) {
-        db_ << "insert into leaderboard name,score,time values ?,?,?;"
+        db_ << "insert into leaderboard name,score values ?,?;"
             << player.name
             << player.score;
     }

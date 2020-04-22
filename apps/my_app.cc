@@ -11,9 +11,14 @@ using cinder::app::KeyEvent;
 
 const char kDbPath[] = "final_project.db";
 
-MyApp::MyApp() { }
+MyApp::MyApp()
+    :leaderboard_{cinder::app::getAssetPath(kDbPath).string()}
+    {}
 
-void MyApp::setup() { }
+void MyApp::setup() {
+    mylibrary::Player test_player{"Jeffrey", 10101};
+    leaderboard_.AddScoreToLeaderBoard(test_player);
+}
 
 void MyApp::update() { }
 

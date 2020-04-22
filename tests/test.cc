@@ -6,10 +6,10 @@
 #include <cinder/Rand.h>
 
 #include <mylibrary/leaderboard.h>
+#include <mylibrary/player.h>
+#include <mylibrary/location.h>
 
 
-TEST_CASE("Random sanity test", "[random]") {
-  const float random = cinder::randFloat();
-  REQUIRE(0. <= random);
-  REQUIRE(random <= 1.);
+TEST_CASE("Location Object") {
+    assert()
 }
