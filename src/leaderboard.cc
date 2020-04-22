@@ -19,9 +19,11 @@ namespace mylibrary {
     }
 
     void LeaderBoard::AddScoreToLeaderBoard(const Player& player) {
-        db_ << "insert into leaderboard name,score values ?,?;"
-            << player.name
-            << player.score;
+        try {
+            db_ << "insert into leaderboard name,score values ?,?;"
+                << player.name
+                << player.score;
+        } catch (std::exception e) {}
     }
 
     vector<Player> GetPlayers(sqlite::database_binder* rows) {
