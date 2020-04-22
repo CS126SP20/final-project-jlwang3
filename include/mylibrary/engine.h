@@ -5,10 +5,13 @@
 #ifndef FINALPROJECT_ENGINE_H
 #define FINALPROJECT_ENGINE_H
 namespace mylibrary {
-    void DrawBoundary();
-    bool IsTouchingBoundary();
-    //Return score to be added.
-    int RemoveRow();
+    /**
+     * The engine should enforce the fact that pieces do not overlap and do not go outside the boundary.
+     */
+    /**
+     * This method removes a row when it is full.
+     */
+    void RemoveRow();
     bool GameOver();
     void Reset();
 }

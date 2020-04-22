@@ -10,10 +10,22 @@
 namespace mylibrary {
     class Piece {
     public:
+        /**
+         * Moves the piece right.
+         */
         void MoveRight();
+        /**
+         * Moves the piece left.
+         */
         void MoveLeft();
+        /**
+         * Drops the piece down.
+         */
         void DropDown();
     private:
+        /**
+         * Represents a piece
+         */
         std::vector<Segment> piece_;
     };
 }

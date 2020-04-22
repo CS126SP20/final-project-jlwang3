@@ -41,17 +41,20 @@ namespace mylibrary {
     }
 
     vector<Player> LeaderBoard::RetrieveHighScores(const size_t limit) {
-        auto rows = db_ << "select name,score from leaderboard order by score desc limit ?"
-                        << limit;
-        return GetPlayers(&rows);
+        try {
+            auto rows = db_ << "select name,score from leaderboard order by score desc limit ?"
+                            << limit;
+            return GetPlayers(&rows);
+        } catch (std::exception e) {}
     }
 
     vector<Player> LeaderBoard::RetrieveHighScores(const Player& player,
                                                    const size_t limit) {
-        auto rows = db_ << "select name,score from leaderboard where name == ? order by score desc limit ?"
-                        << player.name
-                        << limit;
-        return GetPlayers(&rows);
+        try {
+            auto rows = db_ << "select name,score from leaderboard where name == ? order by score desc limit ?"
+                            << player.name
+                            << limit;
+            return GetPlayers(&rows);
+        } catch (std::exception e) {}
     }
-
 }  // namespace mylibrary
