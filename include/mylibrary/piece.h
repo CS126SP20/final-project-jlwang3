@@ -9,6 +9,10 @@
 #include <mylibrary/segment.h>
 namespace mylibrary {
     class Piece {
+    public:
+        void MoveRight();
+        void MoveLeft();
+        void DropDown();
     private:
         std::vector<Segment> piece_;
     };
