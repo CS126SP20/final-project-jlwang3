@@ -16,7 +16,6 @@ namespace mylibrary {
      */
      class Engine {
      public:
-         Engine();
          void SetDirection(Direction);
          void Step();
 

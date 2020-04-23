@@ -5,6 +5,7 @@
 
 #include <cinder/app/App.h>
 #include <mylibrary/leaderboard.h>
+#include <mylibrary/engine.h>
 
 
 namespace myapp {
@@ -18,7 +19,9 @@ class MyApp : public cinder::app::App {
   void keyDown(cinder::app::KeyEvent) override;
 
 private:
+    mylibrary::Engine engine_;
     mylibrary::LeaderBoard leaderboard_;
+    std::vector<mylibrary::Player> top_players_;
 };
 
 }  // namespace myapp
