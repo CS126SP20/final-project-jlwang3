@@ -32,6 +32,7 @@ namespace mylibrary {
          * Same Segments
          */
     private:
+        size_t board_size_ = 10;
         /**
          * Represents a piece
          */

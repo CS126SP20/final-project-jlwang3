@@ -6,6 +6,9 @@
 #define FINALPROJECT_ENGINE_H
 
 #include <cstdio>
+#include <mylibrary/direction.h>
+#include <mylibrary/location.h>
+#include <mylibrary/piece.h>
 
 namespace mylibrary {
     /**
@@ -13,11 +16,14 @@ namespace mylibrary {
      */
      class Engine {
      public:
-         void Reset();
+         Engine();
+         void SetDirection(Direction);
+         void Step();
 
      private:
-         const size_t board_size_ = 10;
+         size_t board_size_ = 10;
+         Direction direction_;
+         Piece piece_;
      };
-
 }
 #endif //FINALPROJECT_ENGINE_H

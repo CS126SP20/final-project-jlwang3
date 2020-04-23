@@ -12,25 +12,25 @@ namespace mylibrary {
 
     void Piece::MoveRight() {
         for (int i = 0; i < piece_.size(); ++i) {
-            piece_[i].SetLocation(piece_[i].GetLocation() + mylibrary::Location(1,0));
+            piece_[i].SetLocation((piece_[i].GetLocation() + mylibrary::Location(1,0)) % Location(board_size_, board_size_));
         }
     }
 
     void Piece::MoveLeft() {
         for (int i = 0; i < piece_.size(); ++i) {
-            piece_[i].SetLocation(piece_[i].GetLocation() - mylibrary::Location(1,0));
+            piece_[i].SetLocation((piece_[i].GetLocation() - mylibrary::Location(1,0)) % Location(board_size_, board_size_));
         }
     }
 
     void Piece::MoveUp() {
         for (int i = 0; i < piece_.size(); ++i) {
-            piece_[i].SetLocation(piece_[i].GetLocation() + mylibrary::Location(0,1));
+            piece_[i].SetLocation((piece_[i].GetLocation() + mylibrary::Location(0,1)) % Location(board_size_,board_size_));
         }
     }
 
     void Piece::MoveDown() {
         for (int i = 0; i < piece_.size(); ++i) {
-            piece_[i].SetLocation(piece_[i].GetLocation() - mylibrary::Location(0,1));
+            piece_[i].SetLocation((piece_[i].GetLocation() - mylibrary::Location(0,1)) % Location(board_size_,board_size_));
         }
     }
 }
