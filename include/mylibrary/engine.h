@@ -8,11 +8,9 @@ namespace mylibrary {
     /**
      * The engine should enforce the fact that pieces do not overlap and do not go outside the boundary.
      */
-    /**
-     * This method removes a row when it is full.
-     */
-    void RemoveRow();
-    bool GameOver();
-    void Reset();
+     class Engine {
+         void Reset();
+     };
+
 }
 #endif //FINALPROJECT_ENGINE_H
