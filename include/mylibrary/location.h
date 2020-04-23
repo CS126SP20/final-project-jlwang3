@@ -9,9 +9,6 @@
 namespace mylibrary {
     class Location {
     public:
-        /**
-         * Require both parameters to be non-negative and less than 10.
-         */
         Location(int row, int col);
 
         // Comparison operators.

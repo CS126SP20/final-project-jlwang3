@@ -6,17 +6,19 @@
 #ifndef FINALPROJECT_SEGMENT_H
 #define FINALPROJECT_SEGMENT_H
 namespace mylibrary {
+    enum Color { red, blue, yellow };
     class Segment {
     public:
-        explicit Segment(const Location& location);
+        explicit Segment(const Location& location, Color color);
+
         Location GetLocation() const;
         Location SetLocation(const Location&);
-        void SetVisibility(bool visible);
-        bool IsVisibile() const;
+        Color GetColor();
+        Color SetColor(Color);
 
     private:
         Location location_;
-        bool visible_;
+        Color color_;
     };
 }
 #endif //FINALPROJECT_SEGMENT_H

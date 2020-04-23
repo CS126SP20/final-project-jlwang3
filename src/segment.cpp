@@ -4,8 +4,8 @@
 #include <mylibrary/segment.h>
 
 namespace mylibrary {
-    Segment::Segment(const Location& location)
-            : location_(location), visible_{true} {}
+    Segment::Segment(const Location& location, Color color)
+            : location_(location), color_(color) {}
 
     Location Segment::GetLocation() const { return location_; }
 
@@ -14,7 +14,12 @@ namespace mylibrary {
         return location_;
     }
 
-    void Segment::SetVisibility(bool visible) { visible_ = visible; }
+    Color Segment::GetColor() {
+        return color_;
+    }
 
-    bool Segment::IsVisibile() const { return visible_; }
+    Color Segment::SetColor(Color color) {
+        color_ = color;
+        return color_;
+    }
 }

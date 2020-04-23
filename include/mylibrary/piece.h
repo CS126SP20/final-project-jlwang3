@@ -7,9 +7,11 @@
 
 #include <vector>
 #include <mylibrary/segment.h>
+
 namespace mylibrary {
     class Piece {
     public:
+        explicit Piece(std::vector<Segment> piece);
         /**
          * Moves the piece right.
          */
@@ -19,9 +21,16 @@ namespace mylibrary {
          */
         void MoveLeft();
         /**
-         * Drops the piece down.
+         * Moves the piece up.
          */
-        void DropDown();
+         void MoveUp();
+        /**
+         * Moves the piece down.
+         */
+        void MoveDown();
+        /**
+         * Same Segments
+         */
     private:
         /**
          * Represents a piece
