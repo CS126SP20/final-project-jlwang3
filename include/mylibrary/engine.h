@@ -16,8 +16,11 @@ namespace mylibrary {
      */
      class Engine {
      public:
+         Engine();
+
          void SetDirection(Direction);
          void Step();
+         std::vector<Segment> GetPiece() const;
 
      private:
          size_t board_size_ = 10;
