@@ -20,7 +20,8 @@ MyApp::MyApp()
      state_{GameState::kPlaying}
     {}
 
-void MyApp::setup() {}
+void MyApp::setup() {cinder::gl::enableDepthWrite();
+    cinder::gl::enableDepthRead();}
 
 void MyApp::update() {
     engine_.Step();
