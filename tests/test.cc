@@ -11,6 +11,3 @@
 #include <mylibrary/piece.h>
 #include <vector>
 
-TEST_CASE("Staying in Bounds") {
-
-}
