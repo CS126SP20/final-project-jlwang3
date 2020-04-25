@@ -9,6 +9,7 @@
 #include <mylibrary/direction.h>
 #include <mylibrary/location.h>
 #include <mylibrary/piece.h>
+#include "pieces.h"
 
 namespace mylibrary {
     /**
@@ -20,7 +21,7 @@ namespace mylibrary {
 
          void SetDirection(Direction);
          void Step();
-         std::vector<Segment> GetPiece() const;
+         Piece GetPiece(mylibrary::Pieces pieces) const;
 
      private:
          size_t board_size_ = 10;

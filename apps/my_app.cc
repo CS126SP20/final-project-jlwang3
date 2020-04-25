@@ -59,7 +59,7 @@ void MyApp::keyDown(KeyEvent event) {
 
     void MyApp::DrawPiece() const {
         int num_visible = 0;
-        for (const mylibrary::Segment& part : engine_.GetPiece()) {
+        for (const mylibrary::Segment& part : engine_.GetPiece(mylibrary::L)) {
             const mylibrary::Location loc = part.GetLocation();
             const double opacity = std::exp(-(num_visible++) / kRate);
             cinder::gl::color(ColorA(0, 0, 1, static_cast<float>(opacity)));

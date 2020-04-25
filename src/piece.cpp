@@ -33,4 +33,20 @@ namespace mylibrary {
             piece_[i].SetLocation((piece_[i].GetLocation() - mylibrary::Location(0,1)) % Location(board_size_,board_size_));
         }
     }
+
+    std::vector<Segment>::iterator Piece::begin() {
+        return std::vector<Segment, std::allocator<Segment>>::iterator();
+    }
+
+    std::vector<Segment>::iterator Piece::end() {
+        return std::vector<Segment, std::allocator<Segment>>::iterator();
+    }
+
+    std::vector<Segment>::const_iterator Piece::cbegin() {
+        return std::vector<Segment, std::allocator<Segment>>::const_iterator();
+    }
+
+    std::vector<Segment>::const_iterator Piece::cend() {
+        return std::vector<Segment, std::allocator<Segment>>::const_iterator();
+    }
 }

@@ -28,9 +28,15 @@ namespace mylibrary {
          * Moves the piece down.
          */
         void MoveDown();
-        /**
-         * Same Segments
-         */
+
+        std::vector<Segment>::iterator begin();
+
+        std::vector<Segment>::iterator end();
+
+        std::vector<Segment>::const_iterator cbegin();
+
+        std::vector<Segment>::const_iterator cend();
+
     private:
         size_t board_size_ = 10;
         /**
