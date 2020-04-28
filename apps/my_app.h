@@ -11,6 +11,7 @@
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
+#include "cinder/gl/Texture.h"
 
 using namespace ci;
 using namespace ci::app;

@@ -13,16 +13,15 @@ namespace myapp {
     using cinder::ColorA;
     using cinder::Rectf;
     using cinder::app::KeyEvent;
+    using cinder::gl::Texture2d;
 
     const char kDbPath[] = "final_project.db";
-
 
     MyApp::MyApp()
     : leaderboard_{cinder::app::getAssetPath(kDbPath).string()},
       state_{GameState::kPlaying}, engine_(10,10),
       tile_size_{80},
-      speed_{50}
-      {}
+      speed_{50} {}
 
 void MyApp::setup() {
     cinder::gl::enableDepthWrite();
