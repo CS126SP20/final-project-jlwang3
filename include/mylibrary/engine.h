@@ -37,7 +37,7 @@ namespace mylibrary {
         size_t GetScore() const;
         Piece GetPiece() const;
 
-    private:
+    //private:
         Location GetRandomLocation();
         Color GetRandomColor();
         PieceType GetRandomPieceType();

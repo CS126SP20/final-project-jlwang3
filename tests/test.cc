@@ -84,3 +84,13 @@ TEST_CASE("Getters and Setters") {
     REQUIRE(test_segment_.GetLocation() == mylibrary::Location(-10,-3));
     REQUIRE(test_segment_.GetColor() == mylibrary::blue);
 }
+
+/**
+ * Testing Piece.h and Engine.h
+ */
+TEST_CASE("10x10") {
+    mylibrary::Engine engine_(10,10);
+    std::cout << engine_.GetRandomLocation() << std::endl;
+    std::cout << engine_.GetRandomPieceType() << std::endl;
+    std::cout << engine_.GetRandomColor() << std::endl;
+}

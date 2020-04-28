@@ -115,27 +115,26 @@ namespace mylibrary {
     Location Engine::GetRandomLocation() {
         std::vector<Location> occupied_tiles = GetOccupiedTiles();
 
-        Location final_location(0, 0);
-
         for (size_t row = 0; row < height_; ++row) {
             for (size_t col = 0; col < width_; ++col) {
                 Location loc(row, col);
+                int count = 0;
                 for (int i = 0; i < occupied_tiles.size(); ++i) {
-                    if (occupied_tiles[i] == loc) break;
+                    if (occupied_tiles[i] == loc) ++count;
                 }
-                final_location = loc;
+                if (count == 0) {
+                    return loc;
+                }
             }
         }
-
-        return final_location;
     }
 
     Color Engine::GetRandomColor() {
-        return static_cast<Color> (rand() % yellow);
+        return yellow;
     }
 
     PieceType Engine::GetRandomPieceType() {
-        return static_cast<PieceType> (rand() % L);
+        return L;
     }
 
     void Engine::SetDirection(Direction direction) {
