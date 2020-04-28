@@ -5,7 +5,7 @@
 #ifndef FINALPROJECT_PIECES_H
 #define FINALPROJECT_PIECES_H
 namespace mylibrary {
-enum Pieces {
+enum PieceType {
     I, O, T, S, Z, J, L
 };
 }

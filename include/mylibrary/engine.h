@@ -19,31 +19,38 @@ namespace mylibrary {
     class Engine {
     public:
         /**
-         * Create a 10x10 game board.
+         * Creates a new snake game of the given size.
          */
-        Engine();
+        Engine(size_t width, size_t height);
         /**
-         * Sets the direction for the Step() Method.
-         */
-        void SetDirection(Direction);
-        /**
-         * Moves the piece in any direction
+         * Executes a time step: moves the piece.
          */
         void Step();
+
         /**
-         * Start game over.
+         * Start the game over.
          */
         void Reset();
 
-        Piece GetPiece(mylibrary::Pieces pieces) const;
+        /**
+         * Changes the direction of the piece for the next time step.
+         */
+        void SetDirection(Direction);
+
+        size_t GetScore() const;
+        Piece GetPiece() const;
 
     private:
-        std::set<Location> GetOccupiedTiles();
+        Location GetRandomLocation();
+        Color GetRandomColor();
+        PieceType GetRandomPieceType();
+        std::vector<Location> GetOccupiedTiles();
 
     private:
-        size_t board_size_ = 10;
-        Direction direction_;
+        const size_t width_;
+        const size_t height_;
         Piece piece_;
+        Direction direction_;
     };
 }
 #endif //FINALPROJECT_ENGINE_H

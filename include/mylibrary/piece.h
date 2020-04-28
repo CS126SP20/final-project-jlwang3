@@ -11,23 +11,15 @@
 namespace mylibrary {
     class Piece {
     public:
-        explicit Piece(std::vector<Segment> piece);
+        Piece();
+        explicit Piece(std::vector<Segment>);
         /**
-         * Moves the piece right.
+         * Returns the size of the piece.
          */
-        void MoveRight();
-        /**
-         * Moves the piece left.
-         */
-        void MoveLeft();
-        /**
-         * Moves the piece up.
-         */
-         void MoveUp();
-        /**
-         * Moves the piece down.
-         */
-        void MoveDown();
+        size_t Size() const;
+
+        Segment Front() const;
+        Segment Back() const;
 
         std::vector<Segment>::iterator begin();
 
@@ -38,7 +30,6 @@ namespace mylibrary {
         std::vector<Segment>::const_iterator cend();
 
     private:
-        size_t board_size_ = 10;
         /**
          * Represents a piece
          */
