@@ -20,8 +20,6 @@ namespace myapp {
 
     enum class GameState {
         kPlaying,
-        kCountDown,
-        kGameOver,
     };
 
 class MyApp : public cinder::app::App {
@@ -34,14 +32,17 @@ class MyApp : public cinder::app::App {
 
 private:
   void DrawPiece() const;
+  void ResetGame();
 
 private:
     mylibrary::Engine engine_;
     mylibrary::LeaderBoard leaderboard_;
     const std::string player_name_;
     std::vector<mylibrary::Player> top_players_;
+    std::chrono::time_point<std::chrono::system_clock> last_time_;
+    const size_t speed_;
     GameState state_;
-    const size_t tile_size_ = 80;
+    const size_t tile_size_;
 };
 
 }  // namespace myapp

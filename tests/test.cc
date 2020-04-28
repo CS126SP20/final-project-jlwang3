@@ -10,6 +10,7 @@
 #include <mylibrary/location.h>
 #include <mylibrary/segment.h>
 #include <mylibrary/piece.h>
+#include <mylibrary/engine.h>
 #include <vector>
 
 /**
@@ -83,4 +84,3 @@ TEST_CASE("Getters and Setters") {
     REQUIRE(test_segment_.GetLocation() == mylibrary::Location(-10,-3));
     REQUIRE(test_segment_.GetColor() == mylibrary::blue);
 }
-TEST_CASE("Piece")

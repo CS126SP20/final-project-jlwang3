@@ -7,34 +7,55 @@
 #include <cinder/gl/gl.h>
 #include <mylibrary/segment.h>
 
-const double kRate = 25;
-
 namespace myapp {
+
+    const double kRate = 25;
     using cinder::ColorA;
     using cinder::Rectf;
-using cinder::app::KeyEvent;
+    using cinder::app::KeyEvent;
 
-const char kDbPath[] = "final_project.db";
+    const char kDbPath[] = "final_project.db";
 
-MyApp::MyApp()
+
+    MyApp::MyApp()
     : leaderboard_{cinder::app::getAssetPath(kDbPath).string()},
-      state_{GameState::kPlaying}, engine_(mylibrary::Piece(std::vector<mylibrary::Segment>{
-                mylibrary::Segment(mylibrary::Location(0, 2), mylibrary::yellow),
-                mylibrary::Segment(mylibrary::Location(0, 1), mylibrary::yellow),
-                mylibrary::Segment(mylibrary::Location(0, 0), mylibrary::yellow),
-                mylibrary::Segment(mylibrary::Location(1, 0), mylibrary::yellow)
-        })) {}
+      state_{GameState::kPlaying}, engine_(10,10),
+      tile_size_{80},
+      speed_{50}
+      {}
 
-void MyApp::setup() {cinder::gl::enableDepthWrite();
-    cinder::gl::enableDepthRead();}
+void MyApp::setup() {
+    cinder::gl::enableDepthWrite();
+    cinder::gl::enableDepthRead();
+    }
 
 void MyApp::update() {
-    engine_.Step();
+    const auto time = std::chrono::system_clock::now();
+    if (time - last_time_ > std::chrono::milliseconds(speed_)) {
+        engine_.Step();
+        last_time_ = time;
+    }
 }
 
 void MyApp::draw() {
+    cinder::gl::enableAlphaBlending();
+
+    cinder::gl::clear();
     DrawPiece();
 }
+
+    void MyApp::DrawPiece() const {
+        int num_visible = 0;
+        for (const mylibrary::Segment& part : engine_.GetPiece()) {
+            const mylibrary::Location loc = part.GetLocation();
+            cinder::gl::color(ColorA(0, 0, 1));
+            cinder::gl::drawSolidRect(Rectf(tile_size_ * loc.Row(),
+                                            tile_size_ * loc.Col(),
+                                            tile_size_ * loc.Row() + tile_size_,
+                                            tile_size_ * loc.Col() + tile_size_));
+        }
+        const cinder::vec2 center = getWindowCenter();
+    }
 
 void MyApp::keyDown(KeyEvent event) {
     switch (event.getCode()) {
@@ -65,18 +86,9 @@ void MyApp::keyDown(KeyEvent event) {
     }
 }
 
-    void MyApp::DrawPiece() const {
-        int num_visible = 0;
-        for (const mylibrary::Segment& part : engine_.GetPiece(mylibrary::L)) {
-            const mylibrary::Location loc = part.GetLocation();
-            const double opacity = std::exp(-(num_visible++) / kRate);
-            cinder::gl::color(ColorA(0, 0, 1, static_cast<float>(opacity)));
-            cinder::gl::drawSolidRect(Rectf(tile_size_ * loc.Row(),
-                                            tile_size_ * loc.Col(),
-                                            tile_size_ * loc.Row() + tile_size_,
-                                            tile_size_ * loc.Col() + tile_size_));
-        }
-        const cinder::vec2 center = getWindowCenter();
+    void MyApp::ResetGame() {
+        engine_.Reset();
+        state_ = GameState::kPlaying;
+        top_players_.clear();
     }
-
 }  // namespace myapp

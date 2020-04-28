@@ -70,7 +70,7 @@ namespace mylibrary {
 
     Engine::Engine(size_t width, size_t height) : width_{width},
                                                   height_{height},
-                                                  direction_{Direction::kDown}
+                                                  direction_{Direction::kStill}
                                                   {Reset();}
 
     /**
@@ -86,6 +86,8 @@ namespace mylibrary {
                 return {0, -1};
             case Direction::kRight:
                 return {0, +1};
+            case Direction::kStill:
+                return {0,0};
         }
     }
 

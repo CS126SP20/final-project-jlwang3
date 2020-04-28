@@ -26,17 +26,14 @@ namespace mylibrary {
          * Executes a time step: moves the piece.
          */
         void Step();
-
         /**
          * Start the game over.
          */
         void Reset();
-
         /**
          * Changes the direction of the piece for the next time step.
          */
         void SetDirection(Direction);
-
         size_t GetScore() const;
         Piece GetPiece() const;
 
