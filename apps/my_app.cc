@@ -19,9 +19,10 @@ namespace myapp {
 
     MyApp::MyApp()
     : leaderboard_{cinder::app::getAssetPath(kDbPath).string()},
-      state_{GameState::kPlaying}, engine_(10,10),
+      state_{GameState::kPlaying},
+      engine_(10,10),
       tile_size_{80},
-      speed_{50} {}
+      speed_{80} {}
 
 void MyApp::setup() {
     cinder::gl::enableDepthWrite();
@@ -44,10 +45,9 @@ void MyApp::draw() {
 }
 
     void MyApp::DrawPiece() const {
-        int num_visible = 0;
-        for (const mylibrary::Segment& part : engine_.GetPiece()) {
-            const mylibrary::Location loc = part.GetLocation();
-            cinder::gl::color(ColorA(0, 0, 1));
+        for (int i = 0; i < engine_.GetPiece().size(); ++i) {
+            const mylibrary::Location loc = engine_.GetPiece()[i].GetLocation();
+            cinder::gl::color(ColorA(0,0,1));
             cinder::gl::drawSolidRect(Rectf(tile_size_ * loc.Row(),
                                             tile_size_ * loc.Col(),
                                             tile_size_ * loc.Row() + tile_size_,
@@ -58,27 +58,19 @@ void MyApp::draw() {
 
 void MyApp::keyDown(KeyEvent event) {
     switch (event.getCode()) {
-        case KeyEvent::KEY_UP:
-        case KeyEvent::KEY_k:
-        case KeyEvent::KEY_w: {
+        case KeyEvent::KEY_UP: {
             engine_.SetDirection(mylibrary::Direction::kUp);
             break;
         }
-        case KeyEvent::KEY_DOWN:
-        case KeyEvent::KEY_j:
-        case KeyEvent::KEY_s: {
+        case KeyEvent::KEY_DOWN:{
             engine_.SetDirection(mylibrary::Direction::kDown);
             break;
         }
-        case KeyEvent::KEY_LEFT:
-        case KeyEvent::KEY_h:
-        case KeyEvent::KEY_a: {
+        case KeyEvent::KEY_LEFT: {
             engine_.SetDirection(mylibrary::Direction::kLeft);
             break;
         }
-        case KeyEvent::KEY_RIGHT:
-        case KeyEvent::KEY_l:
-        case KeyEvent::KEY_d: {
+        case KeyEvent::KEY_RIGHT: {
             engine_.SetDirection(mylibrary::Direction::kRight);
             break;
         }

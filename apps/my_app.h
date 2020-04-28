@@ -20,7 +20,7 @@ using namespace std;
 namespace myapp {
 
     enum class GameState {
-        kPlaying,
+        kPlaying
     };
 
 class MyApp : public cinder::app::App {

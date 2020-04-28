@@ -10,7 +10,9 @@
 #include <mylibrary/location.h>
 #include <mylibrary/piece.h>
 #include <set>
-#include "pieces.h"
+#include <vector>
+#include "piece.h"
+#include "segment.h"
 
 namespace mylibrary {
     /**
@@ -35,18 +37,18 @@ namespace mylibrary {
          */
         void SetDirection(Direction);
         size_t GetScore() const;
-        Piece GetPiece() const;
+        std::vector<Segment> GetPiece() const;
 
     //private:
         Location GetRandomLocation();
         Color GetRandomColor();
-        PieceType GetRandomPieceType();
+        Piece GetRandomPieceType();
         std::vector<Location> GetOccupiedTiles();
 
     private:
         const size_t width_;
         const size_t height_;
-        Piece piece_;
+        std::vector<Segment> piece_;
         Direction direction_;
     };
 }

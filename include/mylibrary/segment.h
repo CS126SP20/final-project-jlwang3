@@ -6,7 +6,7 @@
 #ifndef FINALPROJECT_SEGMENT_H
 #define FINALPROJECT_SEGMENT_H
 namespace mylibrary {
-    enum Color { red, blue, yellow };
+    enum Color { red, green, blue };
     class Segment {
     public:
         explicit Segment(const Location& location, Color color);

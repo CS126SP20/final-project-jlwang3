@@ -3,13 +3,13 @@
 //
 
 #include <mylibrary/engine.h>
-#include <mylibrary//pieces.h>
+#include <mylibrary/piece.h>
 #include <vector>
 #include <utility>
 
 namespace mylibrary {
 
-    Piece Engine::GetPiece() const {
+    std::vector<Segment> Engine::GetPiece() const {
         return piece_;
     }
 
@@ -17,54 +17,54 @@ namespace mylibrary {
         piece_ = {};
         Location location = GetRandomLocation();
         Color color = GetRandomColor();
-        PieceType piece_type = GetRandomPieceType();
+        Piece piece_type = GetRandomPieceType();
         if (piece_type == mylibrary::I) {
-            piece_ = Piece(std::vector<Segment>{Segment(location + mylibrary::Location(0,0), color),
-            Segment(location + mylibrary::Location(0,1), color),
-            Segment(location + mylibrary::Location(0,2), color),
-            Segment(location + mylibrary::Location(0,3), color)});
+            piece_ = std::vector<Segment>{Segment((location + mylibrary::Location(0,0)) % Location(height_,width_), color),
+            Segment((location + mylibrary::Location(0,1)) % Location(height_,width_), color),
+            Segment((location + mylibrary::Location(0,2)) % Location(height_,width_), color),
+            Segment((location + mylibrary::Location(0,3)) % Location(height_,width_), color)};
         } else if (piece_type == mylibrary::O) {
-            piece_ = Piece(std::vector<Segment>{
-                    Segment(location + mylibrary::Location(0,0), color),
-                    Segment(location + mylibrary::Location(1, 0), color),
-                    Segment(location + mylibrary::Location(0, 1), color),
-                    Segment(location + mylibrary::Location(1, 1), color)
-            });
+            piece_ = std::vector<Segment>{
+                    Segment((location + mylibrary::Location(0,0)) % Location(height_,width_), color),
+                    Segment((location + mylibrary::Location(1, 0)) % Location(height_,width_), color),
+                    Segment((location + mylibrary::Location(0, 1)) % Location(height_,width_), color),
+                    Segment((location + mylibrary::Location(1, 1)) % Location(height_,width_), color)
+            };
         } else if (piece_type == mylibrary::T) {
-            piece_ = Piece(std::vector<Segment>{
-                    Segment(location + mylibrary::Location(0,0), color),
-                    Segment(location + mylibrary::Location(1, 0), color),
-                    Segment(location + mylibrary::Location(2, 0), color),
-                    Segment(location + mylibrary::Location(1, 1), color)
-            });
+            piece_ = std::vector<Segment>{
+                    Segment((location + mylibrary::Location(0,0)) % Location(height_,width_), color),
+                    Segment((location + mylibrary::Location(1, 0)) % Location(height_,width_), color),
+                    Segment((location + mylibrary::Location(2, 0)) % Location(height_,width_), color),
+                    Segment((location + mylibrary::Location(1, 1)) % Location(height_,width_), color)
+            };
         } else if (piece_type == mylibrary::S) {
-            piece_ = Piece(std::vector<Segment>{
-                    Segment(location + mylibrary::Location(0, 0), color),
-                    Segment(location + mylibrary::Location(1, 0), color),
-                    Segment(location + mylibrary::Location(1, 1), color),
-                    Segment(location + mylibrary::Location(2, 1), color)
-            });
+            piece_ = std::vector<Segment>{
+                    Segment((location + mylibrary::Location(0, 0)) % Location(height_,width_), color),
+                    Segment((location + mylibrary::Location(1, 0)) % Location(height_,width_), color),
+                    Segment((location + mylibrary::Location(1, 1)) % Location(height_,width_), color),
+                    Segment((location + mylibrary::Location(2, 1)) % Location(height_,width_), color)
+            };
         } else if (piece_type == mylibrary::Z) {
-            piece_ = Piece(std::vector<Segment>{
-                    Segment(location + mylibrary::Location(0, 1), color),
-                    Segment(location + mylibrary::Location(1, 1), color),
-                    Segment(location + mylibrary::Location(1, 0), color),
-                    Segment(location + mylibrary::Location(2, 0), color)
-            });
+            piece_ = std::vector<Segment>{
+                    Segment((location + mylibrary::Location(0, 1)) % Location(height_,width_), color),
+                    Segment((location + mylibrary::Location(1, 1)) % Location(height_,width_), color),
+                    Segment((location + mylibrary::Location(1, 0)) % Location(height_,width_), color),
+                    Segment((location + mylibrary::Location(2, 0)) % Location(height_,width_), color)
+            };
         } else if (piece_type == mylibrary::J) {
-            piece_ = Piece(std::vector<Segment>{
-                    Segment(location + mylibrary::Location(0, 0), color),
-                    Segment(location + mylibrary::Location(1, 0), color),
-                    Segment(location + mylibrary::Location(1, 1), color),
-                    Segment(location + mylibrary::Location(1, 2), color)
-            });
+            piece_ = std::vector<Segment>{
+                    Segment((location + mylibrary::Location(0, 0)) % Location(height_,width_), color),
+                    Segment((location + mylibrary::Location(1, 0)) % Location(height_,width_), color),
+                    Segment((location + mylibrary::Location(1, 1)) % Location(height_,width_), color),
+                    Segment((location + mylibrary::Location(1, 2)) % Location(height_,width_), color)
+            };
         } else {
-            piece_ = Piece(std::vector<Segment>{
-                Segment(location + mylibrary::Location(0, 2), color),
-                Segment(location + mylibrary::Location(0, 1), color),
-                Segment(location + mylibrary::Location(0, 0), color),
-                Segment(location + mylibrary::Location(1, 0), color)
-        });
+            piece_ = std::vector<Segment>{
+                Segment((location + mylibrary::Location(0, 2)) % Location(height_,width_), color),
+                Segment((location + mylibrary::Location(0, 1)) % Location(height_,width_), color),
+                Segment((location + mylibrary::Location(0, 0)) % Location(height_,width_), color),
+                Segment((location + mylibrary::Location(1, 0)) % Location(height_,width_), color)
+        };
         }
     }
 
@@ -78,13 +78,13 @@ namespace mylibrary {
      */
     Location FromDirection(const Direction direction) {
         switch (direction) {
-            case Direction::kUp:
-                return {-1, 0};
-            case Direction::kDown:
-                return {+1, 0};
             case Direction::kLeft:
-                return {0, -1};
+                return {-1, 0};
             case Direction::kRight:
+                return {+1, 0};
+            case Direction::kDown:
+                return {0, -1};
+            case Direction::kUp:
                 return {0, +1};
             case Direction::kStill:
                 return {0,0};
@@ -94,11 +94,10 @@ namespace mylibrary {
     void Engine::Step() {
         Location d_loc = FromDirection(direction_);
         const std::vector<Location> old_occupied_tiles = GetOccupiedTiles();
-        Location leader = (piece_.Front().GetLocation() + d_loc) % Location(height_,width_);
+
         for (Segment& block : piece_) {
-            Location old = block.GetLocation();
-            block.SetLocation(leader);
-            leader = old;
+            Location next = (block.GetLocation() + d_loc) % Location(height_, width_);
+            block.SetLocation(next);
         }
     }
 
@@ -130,10 +129,10 @@ namespace mylibrary {
     }
 
     Color Engine::GetRandomColor() {
-        return yellow;
+        return blue;
     }
 
-    PieceType Engine::GetRandomPieceType() {
+    Piece Engine::GetRandomPieceType() {
         return L;
     }
 
