@@ -4,5 +4,10 @@
 
 #ifndef FINALPROJECT_DIRECTION_H
 #define FINALPROJECT_DIRECTION_H
-namespace mylibrary {enum class Direction { kUp, kDown, kLeft, kRight };}
+namespace mylibrary {
+    /**
+     * Represents the Direction we want our piece to move.
+     */
+    enum class Direction { kUp, kDown, kLeft, kRight };
+}
 #endif //FINALPROJECT_DIRECTION_H

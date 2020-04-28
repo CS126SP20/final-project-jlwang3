@@ -9,24 +9,41 @@
 #include <mylibrary/direction.h>
 #include <mylibrary/location.h>
 #include <mylibrary/piece.h>
+#include <set>
 #include "pieces.h"
 
 namespace mylibrary {
     /**
-     * The engine should enforce the fact that pieces do not overlap and do not go outside the boundary.
+     * The engine enables us to interact with the game.
      */
-     class Engine {
-     public:
-         Engine();
+    class Engine {
+    public:
+        /**
+         * Create a 10x10 game board.
+         */
+        Engine();
+        /**
+         * Sets the direction for the Step() Method.
+         */
+        void SetDirection(Direction);
+        /**
+         * Moves the piece in any direction
+         */
+        void Step();
+        /**
+         * Start game over.
+         */
+        void Reset();
 
-         void SetDirection(Direction);
-         void Step();
-         Piece GetPiece(mylibrary::Pieces pieces) const;
+        Piece GetPiece(mylibrary::Pieces pieces) const;
 
-     private:
-         size_t board_size_ = 10;
-         Direction direction_;
-         Piece piece_;
-     };
+    private:
+        std::set<Location> GetOccupiedTiles();
+
+    private:
+        size_t board_size_ = 10;
+        Direction direction_;
+        Piece piece_;
+    };
 }
 #endif //FINALPROJECT_ENGINE_H

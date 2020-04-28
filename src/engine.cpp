@@ -5,6 +5,8 @@
 #include <mylibrary/engine.h>
 #include <mylibrary//pieces.h>
 
+#include <utility>
+
 namespace mylibrary {
 void Engine::Step() {
     switch (direction_) {
@@ -79,4 +81,13 @@ void Engine::Step() {
                 Segment(mylibrary::Location(1, 0), mylibrary::yellow)
         });
     }
+
+    std::set<Location> Engine::GetOccupiedTiles() {
+
+    }
+
+    void Engine::Reset() {
+
+    }
+
 }

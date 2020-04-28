@@ -5,6 +5,7 @@
 #include <cinder/app/App.h>
 #include <cinder/gl/draw.h>
 #include <cinder/gl/gl.h>
+#include <mylibrary/segment.h>
 
 const double kRate = 25;
 
@@ -16,9 +17,13 @@ using cinder::app::KeyEvent;
 const char kDbPath[] = "final_project.db";
 
 MyApp::MyApp()
-    :leaderboard_{cinder::app::getAssetPath(kDbPath).string()},
-     state_{GameState::kPlaying}
-    {}
+    : leaderboard_{cinder::app::getAssetPath(kDbPath).string()},
+      state_{GameState::kPlaying}, engine_(mylibrary::Piece(std::vector<mylibrary::Segment>{
+                mylibrary::Segment(mylibrary::Location(0, 2), mylibrary::yellow),
+                mylibrary::Segment(mylibrary::Location(0, 1), mylibrary::yellow),
+                mylibrary::Segment(mylibrary::Location(0, 0), mylibrary::yellow),
+                mylibrary::Segment(mylibrary::Location(1, 0), mylibrary::yellow)
+        })) {}
 
 void MyApp::setup() {cinder::gl::enableDepthWrite();
     cinder::gl::enableDepthRead();}
@@ -27,32 +32,34 @@ void MyApp::update() {
     engine_.Step();
 }
 
-void MyApp::draw() { }
+void MyApp::draw() {
+    DrawPiece();
+}
 
 void MyApp::keyDown(KeyEvent event) {
     switch (event.getCode()) {
         case KeyEvent::KEY_UP:
         case KeyEvent::KEY_k:
         case KeyEvent::KEY_w: {
-            engine_.SetDirection(mylibrary::Direction::kLeft);
+            engine_.SetDirection(mylibrary::Direction::kUp);
             break;
         }
         case KeyEvent::KEY_DOWN:
         case KeyEvent::KEY_j:
         case KeyEvent::KEY_s: {
-            engine_.SetDirection(mylibrary::Direction::kRight);
+            engine_.SetDirection(mylibrary::Direction::kDown);
             break;
         }
         case KeyEvent::KEY_LEFT:
         case KeyEvent::KEY_h:
         case KeyEvent::KEY_a: {
-            engine_.SetDirection(mylibrary::Direction::kUp);
+            engine_.SetDirection(mylibrary::Direction::kLeft);
             break;
         }
         case KeyEvent::KEY_RIGHT:
         case KeyEvent::KEY_l:
         case KeyEvent::KEY_d: {
-            engine_.SetDirection(mylibrary::Direction::kDown);
+            engine_.SetDirection(mylibrary::Direction::kRight);
             break;
         }
     }
