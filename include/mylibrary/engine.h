@@ -48,7 +48,7 @@ namespace mylibrary {
 
         std::vector<Segment> GetCurrentPiece() const;
 
-        std::vector<std::vector<Segment>> GetAllPieces() const;
+        std::vector<Segment> GetAllPieces() const;
 
     private:
         /**
@@ -74,10 +74,9 @@ namespace mylibrary {
         const size_t width_;
         const size_t height_;
         std::vector<Segment> * current_piece_;
-        std::vector<std::vector<Segment>> all_pieces_;
+        std::vector<Segment> all_pieces_;
         Direction direction_;
         std::random_device rd_;
-        std::vector<Location> occupied_tiles_;
     };
 }
 #endif //FINALPROJECT_ENGINE_H

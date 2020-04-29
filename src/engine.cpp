@@ -93,7 +93,9 @@ namespace mylibrary {
          * If it has, add the piece to vector containing all pieces and spawn a new piece.
          */
         if (IsTouchingBottom()) {
-            all_pieces_.push_back(* current_piece_);
+            for (int i = 0; i < current_piece_->size(); ++i) {
+                all_pieces_.push_back(current_piece_->at(i));
+            }
             NewPiece();
         }
 
@@ -101,8 +103,15 @@ namespace mylibrary {
          * Converts Key Events to a change in location to be executed.
          */
         Location d_loc = FromDirection(direction_);
-        const std::vector<Location> old_occupied_tiles = GetCurrentOccupiedTiles();
-
+        for (Segment& block : * current_piece_) {
+            Location next = (block.GetLocation() + d_loc) % Location(width_,height_);
+            /**
+             * Prevents Pieces from Moving Horizontally onto each other.
+             */
+            for (Segment& square : all_pieces_) {
+                if (next == square.GetLocation()) d_loc = FromDirection(Direction::kDown);
+            }
+        }
         for (Segment& block : * current_piece_) {
             Location next = (block.GetLocation() + d_loc) % Location(width_,height_);
             block.SetLocation(next);
@@ -113,10 +122,8 @@ namespace mylibrary {
         for (int i = 0; i < current_piece_->size(); ++i) {
             if (current_piece_->at(i).GetLocation().Col() == height_ - 2) return true;
             for (int x = 0; x < all_pieces_.size(); ++x) {
-                for (int y = 0; y < all_pieces_[x].size(); ++y) {
-                    if (current_piece_->at(i).GetLocation().Col() == all_pieces_[x][y].GetLocation().Col() - 1
-                    && current_piece_->at(i).GetLocation().Row() == all_pieces_[x][y].GetLocation().Row()) return true;
-                }
+                if (current_piece_->at(i).GetLocation().Col() == all_pieces_[x].GetLocation().Col() - 1
+                && current_piece_->at(i).GetLocation().Row() == all_pieces_[x].GetLocation().Row()) return true;
             }
         }
         return false;
@@ -168,11 +175,10 @@ namespace mylibrary {
     void Engine::Reset() {
         current_piece_ = {};
         all_pieces_ = {};
-        occupied_tiles_ = {};
         NewPiece();
     }
 
-    std::vector<std::vector<Segment>> Engine::GetAllPieces() const {
+    std::vector<Segment> Engine::GetAllPieces() const {
         return all_pieces_;
     }
 }

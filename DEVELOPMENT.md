@@ -11,3 +11,6 @@
 -Test Location class DONE
 -Test Segment class DONE
 -Test Engine class DONE
+
+4/29 Finished Block Functionality
+* Idea : Need to include an update where all segments fall by default in order to implement removing block scoring system.
