@@ -6,6 +6,7 @@
 #include <cinder/gl/draw.h>
 #include <cinder/gl/gl.h>
 #include <mylibrary/segment.h>
+#include <gflags/gflags.h>
 
 namespace myapp {
 
@@ -17,12 +18,18 @@ namespace myapp {
 
     const char kDbPath[] = "final_project.db";
 
+    DECLARE_uint32(size);
+    DECLARE_uint32(tilesize);
+    DECLARE_uint32(speed);
+    DECLARE_string(name);
+
     MyApp::MyApp()
     : leaderboard_{cinder::app::getAssetPath(kDbPath).string()},
       state_{GameState::kPlaying},
-      engine_(10,10),
-      tile_size_{80},
-      speed_{80} {}
+      engine_(FLAGS_size,FLAGS_size),
+      tile_size_{FLAGS_tilesize},
+      speed_{FLAGS_speed},
+      player_name_{FLAGS_name}{}
 
 void MyApp::setup() {
     cinder::gl::enableDepthWrite();

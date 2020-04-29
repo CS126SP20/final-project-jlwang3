@@ -101,20 +101,6 @@ if (NOT sqlite-modern-cpp_POPULATED)
     target_include_directories(sqlite-modern-cpp INTERFACE ${sqlite-modern-cpp_SOURCE_DIR}/hdr)
 endif ()
 
-# JSON Library. Header-only.
-FetchContent_Declare(
-        nlohmann_json
-        URL https://github.com/nlohmann/json/releases/download/v3.7.3/include.zip
-)
-
-# Adds nlohmann_json library.
-FetchContent_GetProperties(nlohmann_json)
-if (NOT nlohmann_json_POPULATED)
-    FetchContent_Populate(nlohmann_json)
-    add_library(nlohmann_json INTERFACE)
-    target_include_directories(nlohmann_json INTERFACE ${nlohmann_json_SOURCE_DIR}/single_include)
-endif ()
-
 FetchContent_Declare(
         sqlite3
         GIT_REPOSITORY https://github.com/alex85k/sqlite3-cmake.git
@@ -127,4 +113,18 @@ if (NOT sqlite3_POPULATED)
     FetchContent_Populate(sqlite3)
     add_subdirectory(${sqlite3_SOURCE_DIR} ${sqlite3_BINARY_DIR})
     target_include_directories(sqlite3 INTERFACE ${sqlite3_SOURCE_DIR}/src)
+endif ()
+
+# Command-line parsing library
+FetchContent_Declare(
+        gflags
+        GIT_REPOSITORY https://github.com/gflags/gflags.git
+        GIT_TAG v2.2.2
+)
+
+# Adds gflags::gflags
+FetchContent_GetProperties(gflags)
+if (NOT gflags_POPULATED)
+    FetchContent_Populate(gflags)
+    add_subdirectory(${gflags_SOURCE_DIR} ${gflags_BINARY_DIR})
 endif ()
