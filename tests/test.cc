@@ -73,10 +73,10 @@ TEST_CASE("Accessors") {
 TEST_CASE("Getters and Setters") {
 
     mylibrary::Location origin_(0,0);
-    mylibrary::Segment test_segment_ (origin_, mylibrary::yellow);
+    mylibrary::Segment test_segment_ (origin_, mylibrary::blue);
 
     REQUIRE(test_segment_.GetLocation() == origin_);
-    REQUIRE(test_segment_.GetColor() == mylibrary::yellow);
+    REQUIRE(test_segment_.GetColor() == mylibrary::blue);
 
     test_segment_.SetLocation(mylibrary::Location (-10,-3));
     test_segment_.SetColor(mylibrary::blue);
@@ -86,11 +86,7 @@ TEST_CASE("Getters and Setters") {
 }
 
 /**
- * Testing Piece.h and Engine.h
+ * Testing Engine.h
  */
-TEST_CASE("10x10") {
-    mylibrary::Engine engine_(10,10);
-    std::cout << engine_.GetRandomLocation() << std::endl;
-    std::cout << engine_.GetRandomPieceType() << std::endl;
-    std::cout << engine_.GetRandomColor() << std::endl;
+TEST_CASE("5x20") {
 }

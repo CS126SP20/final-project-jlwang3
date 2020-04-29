@@ -12,9 +12,10 @@ using cinder::app::RendererGl;
 
 namespace myapp {
 
-    DEFINE_uint32(size, 16, "the number of tiles in each row and column");
+    DEFINE_uint32(width, 5, "the number of tiles in each row");
+    DEFINE_uint32(height,20,"the number of tiles in each column");
     DEFINE_uint32(tilesize, 50, "the size of each tile");
-    DEFINE_uint32(speed, 50, "the speed (delay) of the game");
+    DEFINE_uint32(speed, 200, "the speed (delay) of the game");
     DEFINE_string(name, "CS126SP20", "the name of the player");
 
 const int kSamples = 8;
@@ -37,8 +38,8 @@ void SetUp(App::Settings* settings) {
     vector<string> args = settings->getCommandLineArgs();
     ParseArgs(&args);
 
-    const int width = static_cast<int>(FLAGS_size * FLAGS_tilesize);
-    const int height = static_cast<int>(FLAGS_size * FLAGS_tilesize);
+    const int width = static_cast<int>(FLAGS_width * FLAGS_tilesize);
+    const int height = static_cast<int>(FLAGS_height * FLAGS_tilesize);
     settings->setWindowSize(width, height);
     settings->setResizable(false);
     settings->setTitle("CS 126 Snake");

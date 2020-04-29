@@ -11,6 +11,7 @@
 #include <mylibrary/piece.h>
 #include <set>
 #include <vector>
+#include <random>
 #include "piece.h"
 #include "segment.h"
 
@@ -25,31 +26,57 @@ namespace mylibrary {
          */
         Engine(size_t width, size_t height);
         /**
-         * Executes a time step: moves the piece.
+         * Executes a time step: moves the current piece and spawns in new pieces.
          */
         void Step();
         /**
-         * Start the game over.
+         * Start the Game Over.
          */
         void Reset();
+        /**
+         * Spawn a new piece.
+         */
+        void NewPiece();
         /**
          * Changes the direction of the piece for the next time step.
          */
         void SetDirection(Direction);
-        size_t GetScore() const;
-        std::vector<Segment> GetPiece() const;
 
-    //private:
+        std::vector<Segment> GetCurrentPiece() const;
+
+        /**
+             * Checks if the current piece is touching bottom, if so, spawn in a new piece.
+             */
+        bool IsTouchingBottom();
+
+    private:
+        /**
+         * Generate random location on the top row where row = 0
+         * DISCLAIMER: Need to check for overlapping tiles before spawning new piece
+         */
         Location GetRandomLocation();
         Color GetRandomColor();
         Piece GetRandomPieceType();
-        std::vector<Location> GetOccupiedTiles();
+        /**
+         * Very Important!
+         * Keeps track of GameOver(), piece collisions, removing a full row.
+         */
+        std::vector<Location> GetCurrentOccupiedTiles();
+        /**
+         * Removes a full row.
+         */
+        void RemoveRow(int);
+        bool GameOver();
+        int RandomInt(int, int);
 
     private:
         const size_t width_;
         const size_t height_;
-        std::vector<Segment> piece_;
+        std::vector<Segment> current_piece_;
+        std::vector<std::vector<Segment>> all_pieces_;
         Direction direction_;
+        std::random_device rd_;
+        std::vector<Location> occupied_tiles_;
     };
 }
 #endif //FINALPROJECT_ENGINE_H

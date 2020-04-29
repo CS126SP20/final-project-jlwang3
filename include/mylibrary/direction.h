@@ -8,6 +8,6 @@ namespace mylibrary {
     /**
      * Represents the Direction we want our piece to move.
      */
-    enum class Direction { kUp, kDown, kLeft, kRight, kStill };
+    enum class Direction { kDown, kLeft, kRight };
 }
 #endif //FINALPROJECT_DIRECTION_H
