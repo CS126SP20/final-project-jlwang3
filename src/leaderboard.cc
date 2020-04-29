@@ -20,10 +20,12 @@ namespace mylibrary {
 
     void LeaderBoard::AddScoreToLeaderBoard(const Player& player) {
         try {
-            db_ << "insert into leaderboard name,score values ?,?;"
+            db_ << "insert into leaderboard (name,score) values (?,?);"
                 << player.name
                 << player.score;
-        } catch (std::exception e) {}
+        } catch (const std::exception& e) {
+            std::cout << e.what() << std::endl;
+        }
     }
 
     vector<Player> GetPlayers(sqlite::database_binder* rows) {
@@ -42,19 +44,23 @@ namespace mylibrary {
 
     vector<Player> LeaderBoard::RetrieveHighScores(const size_t limit) {
         try {
-            auto rows = db_ << "select name,score from leaderboard order by score desc limit ?"
+            auto rows = db_ << "select name,score from leaderboard order by score desc limit ?;"
                             << limit;
             return GetPlayers(&rows);
-        } catch (std::exception e) {}
+        } catch (const std::exception& e) {
+            std::cout << e.what() << std::endl;
+        }
     }
 
     vector<Player> LeaderBoard::RetrieveHighScores(const Player& player,
                                                    const size_t limit) {
         try {
-            auto rows = db_ << "select name,score from leaderboard where name == ? order by score desc limit ?"
+            auto rows = db_ << "select name,score from leaderboard where name == ? order by score desc limit ?;"
                             << player.name
                             << limit;
             return GetPlayers(&rows);
-        } catch (std::exception e) {}
+        } catch (const std::exception& e) {
+            std::cout << e.what() << std::endl;
+        }
     }
 }  // namespace mylibrary
