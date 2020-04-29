@@ -68,9 +68,11 @@ namespace mylibrary {
         }
     }
 
-    Engine::Engine(size_t width, size_t height) : width_{width},
+    Engine::Engine(size_t width, size_t height, int difficulty) : width_{width},
                                                   height_{height},
-                                                  direction_{Direction::kDown}
+                                                  direction_{Direction::kDown},
+                                                  rotation_{Rotation::kStill},
+                                                  difficulty_{difficulty}
                                                   { NewPiece();}
 
     /**
@@ -94,7 +96,7 @@ namespace mylibrary {
          */
         if (IsTouchingBottom()) {
             for (int i = 0; i < current_piece_->size(); ++i) {
-                all_pieces_.push_back(current_piece_->at(i));
+                all_pieces.push_back(current_piece_->at(i));
             }
             NewPiece();
         }
@@ -108,7 +110,7 @@ namespace mylibrary {
             /**
              * Prevents Pieces from Moving Horizontally onto each other.
              */
-            for (Segment& square : all_pieces_) {
+            for (Segment& square : all_pieces) {
                 if (next == square.GetLocation()) d_loc = FromDirection(Direction::kDown);
             }
         }
@@ -116,14 +118,64 @@ namespace mylibrary {
             Location next = (block.GetLocation() + d_loc) % Location(width_,height_);
             block.SetLocation(next);
         }
+
+        UpdateAllPieces();
+
+        /**
+         * Converts Key Events to a change in orientation
+         */
+         if (rotation_ == Rotation::kClockwise) {
+             Location c_loc = current_piece_->front().GetLocation();
+             int can_rotate_ = 0;
+             for (Segment& block : * current_piece_) {
+                 Location next =
+                         (mylibrary::Location(-(block.GetLocation() - c_loc).Col(), (block.GetLocation() - c_loc).Row()) +
+                          c_loc) % Location(width_, height_);
+                 /**
+                  * Prevents Pieces from Rotating onto each other
+                  */
+                 for (Segment &square : all_pieces) {
+                     if (next == square.GetLocation()) ++can_rotate_ ;
+                 }
+             }
+             if (can_rotate_ == 0) {
+                 for (Segment& block : * current_piece_) {
+                     Location next = (mylibrary::Location(-(block.GetLocation() - c_loc).Col(), (block.GetLocation() - c_loc).Row()) +
+                                      c_loc) % Location(width_, height_);
+                     block.SetLocation(next);
+                 }
+             }
+         }
+         if (rotation_ == Rotation::kCounterclockwise) {
+             Location c_loc = current_piece_->front().GetLocation();
+             int can_rotate_ = 0;
+             for (Segment& block : * current_piece_) {
+                 Location next =
+                         (mylibrary::Location((block.GetLocation() - c_loc).Col(), -(block.GetLocation() - c_loc).Row()) +
+                          c_loc) % Location(width_, height_);
+                 /**
+                  * Prevents Pieces from Rotating onto each other
+                  */
+                 for (Segment &square : all_pieces) {
+                     if (next == square.GetLocation()) ++can_rotate_ ;
+                 }
+             }
+             if (can_rotate_ == 0) {
+                 for (Segment& block : * current_piece_) {
+                     Location next = (mylibrary::Location(-(block.GetLocation() - c_loc).Col(), (block.GetLocation() - c_loc).Row()) +
+                                      c_loc) % Location(width_, height_);
+                     block.SetLocation(next);
+                 }
+             }
+         }
     }
 
     bool Engine::IsTouchingBottom() {
         for (int i = 0; i < current_piece_->size(); ++i) {
             if (current_piece_->at(i).GetLocation().Col() == height_ - 2) return true;
-            for (int x = 0; x < all_pieces_.size(); ++x) {
-                if (current_piece_->at(i).GetLocation().Col() == all_pieces_[x].GetLocation().Col() - 1
-                && current_piece_->at(i).GetLocation().Row() == all_pieces_[x].GetLocation().Row()) return true;
+            for (int x = 0; x < all_pieces.size(); ++x) {
+                if (current_piece_->at(i).GetLocation().Col() == all_pieces[x].GetLocation().Col() - 1
+                && current_piece_->at(i).GetLocation().Row() == all_pieces[x].GetLocation().Row()) return true;
             }
         }
         return false;
@@ -174,11 +226,71 @@ namespace mylibrary {
 
     void Engine::Reset() {
         current_piece_ = {};
-        all_pieces_ = {};
+        all_pieces = {};
         NewPiece();
     }
 
     std::vector<Segment> Engine::GetAllPieces() const {
-        return all_pieces_;
+        return all_pieces;
+    }
+
+    size_t Engine::GetScore() {
+        return score_;
+    }
+
+    void Engine::UpdateAllPieces() {
+        std::vector<Segment> red_segments_;
+        std::vector<Segment> blue_segments_;
+        std::vector<Segment> green_segments_;
+
+        for (int i = 0; i < all_pieces.size(); ++i) {
+            if (all_pieces[i].GetColor() == red) {
+                red_segments_.push_back(all_pieces[i]);
+            }
+            if (all_pieces[i].GetColor() == blue) {
+                blue_segments_.push_back(all_pieces[i]);
+            }
+            if (all_pieces[i].GetColor() == green) {
+                green_segments_.push_back(all_pieces[i]);
+            }
+        }
+
+        if (NumberOfTouches(red_segments_) >= difficulty_) {
+            score_++;
+        }
+        if (NumberOfTouches(blue_segments_) >= difficulty_) {
+            score_++;
+        }
+        if (NumberOfTouches(green_segments_) >= difficulty_) {
+            score_++;
+        }
+    }
+
+    int Engine::NumberOfTouches(std::vector<Segment> piece) {
+        int count = 0;
+        for (int i = 0; i < piece.size(); ++i) {
+            for (int j = i; j < piece.size(); ++j) {
+                if (piece[i].Touches(piece[j])) count++;
+            }
+        }
+        return count;
+    }
+
+    std::vector<Segment> Engine::TouchingSegments(std::vector<Segment> piece) {
+        std::vector<Segment> touching_segments_;
+        for (auto & all_piece : all_pieces) {
+            for (auto j : piece) {
+                if (all_piece.Touches(j)) touching_segments_.push_back(all_piece);
+            }
+        }
+        return touching_segments_;
+    }
+
+    void Engine::DropSegments(std::vector<Segment>) {
+        Location d_loc = FromDirection(Direction::kDown);
+    }
+
+    void Engine::SetRotation(Rotation rotation) {
+        rotation_ = rotation;
     }
 }

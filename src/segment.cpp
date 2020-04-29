@@ -22,4 +22,8 @@ namespace mylibrary {
         color_ = color;
         return color_;
     }
+
+    bool Segment::Touches(Segment rhs) {
+        return location_.Touches(rhs.location_);
+    }
 }

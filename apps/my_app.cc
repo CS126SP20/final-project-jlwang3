@@ -18,6 +18,7 @@ namespace myapp {
 
     const char kDbPath[] = "final_project.db";
 
+    DECLARE_uint32(difficulty);
     DECLARE_uint32(width);
     DECLARE_uint32(height);
     DECLARE_uint32(tilesize);
@@ -27,7 +28,7 @@ namespace myapp {
     MyApp::MyApp()
     : leaderboard_{cinder::app::getAssetPath(kDbPath).string()},
       state_{GameState::kPlaying},
-      engine_(FLAGS_width,FLAGS_height),
+      engine_(FLAGS_width,FLAGS_height, FLAGS_difficulty),
       tile_size_{FLAGS_tilesize},
       speed_{FLAGS_speed},
       player_name_{FLAGS_name}{}
@@ -79,7 +80,11 @@ void MyApp::draw() {
 void MyApp::keyDown(KeyEvent event) {
     switch (event.getCode()) {
         case KeyEvent::KEY_DOWN:{
-            engine_.SetDirection(mylibrary::Direction::kDown);
+            engine_.SetRotation(mylibrary::Rotation::kClockwise);
+            break;
+        }
+        case KeyEvent::KEY_UP:{
+            engine_.SetRotation(mylibrary::Rotation::kCounterclockwise);
             break;
         }
         case KeyEvent::KEY_LEFT: {
@@ -96,7 +101,11 @@ void MyApp::keyDown(KeyEvent event) {
     void MyApp::keyUp(KeyEvent event) {
         switch (event.getCode()) {
             case KeyEvent::KEY_DOWN:{
-                engine_.SetDirection(mylibrary::Direction::kDown);
+                engine_.SetRotation(mylibrary::Rotation::kStill);
+                break;
+            }
+            case KeyEvent::KEY_UP:{
+                engine_.SetRotation(mylibrary::Rotation::kStill);
                 break;
             }
             case KeyEvent::KEY_LEFT: {

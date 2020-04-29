@@ -66,6 +66,14 @@ namespace mylibrary {
 
     int Location::Col() const { return col_; }
 
+    bool Location::Touches(const Location &rhs) const {
+        if (row_ + 1 == rhs.row_ && col_ == rhs.col_) return true;
+        if (row_ - 1 == rhs.row_ && col_ == rhs.col_) return true;
+        if (row_ == rhs.row_ && col_ + 1 == rhs.col_) return true;
+        if (row_ == rhs.row_ && col_ - 1 == rhs.col_) return true;
+        return false;
+    }
+
     std::ostream& operator<<(std::ostream& os, const Location& location) {
         os << "{row=" << location.Row() << ", col=" << location.Col() << "}";
         return os;

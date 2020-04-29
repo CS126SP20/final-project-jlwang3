@@ -88,5 +88,16 @@ TEST_CASE("Getters and Setters") {
 /**
  * Testing Engine.h
  */
-TEST_CASE("5x20") {
+TEST_CASE("Touches Method") {
+    mylibrary::Location origin_(0,0);
+    REQUIRE(origin_.Touches(mylibrary::Location(1,0)));
+    REQUIRE(origin_.Touches(mylibrary::Location(-1,0)));
+    REQUIRE(origin_.Touches(mylibrary::Location(0,1)));
+    REQUIRE(origin_.Touches(mylibrary::Location(0,-1)));
+
+    mylibrary::Segment test_segment_ (origin_, mylibrary::blue);
+    REQUIRE(test_segment_.Touches(mylibrary::Segment(mylibrary::Location(1,0), mylibrary::green)));
+    REQUIRE(test_segment_.Touches(mylibrary::Segment(mylibrary::Location(-1,0), mylibrary::red)));
+    REQUIRE(test_segment_.Touches(mylibrary::Segment(mylibrary::Location(0,1), mylibrary::blue)));
+    REQUIRE(test_segment_.Touches(mylibrary::Segment(mylibrary::Location(0,-1), mylibrary::red)));
 }

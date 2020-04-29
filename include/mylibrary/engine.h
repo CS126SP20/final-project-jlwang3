@@ -14,6 +14,7 @@
 #include <random>
 #include "piece.h"
 #include "segment.h"
+#include "rotation.h"
 
 namespace mylibrary {
     /**
@@ -24,7 +25,7 @@ namespace mylibrary {
         /**
          * Creates a new snake game of the given size.
          */
-        Engine(size_t width, size_t height);
+        Engine(size_t width, size_t height, int difficulty);
         /**
          * Executes a time step: moves the current piece, spawns in new pieces, and prevents collisions.
          */
@@ -33,6 +34,12 @@ namespace mylibrary {
          * Checks if the current piece is touching bottom, if so, spawn in a new piece.
          */
         bool IsTouchingBottom();
+        /**
+         * Checks if there are sufficient touches between same color pieces.
+         * Removes them if so,
+         * and drops remaining pieces.
+         */
+        void UpdateAllPieces();
         /**
          * Start the Game Over.
          */
@@ -46,11 +53,20 @@ namespace mylibrary {
          */
         void SetDirection(Direction);
 
+        /**
+         * Changes the rotation of the piece for the next time step.
+         */
+        void SetRotation(Rotation);
+
         std::vector<Segment> GetCurrentPiece() const;
 
         std::vector<Segment> GetAllPieces() const;
 
     private:
+        int NumberOfTouches(std::vector<Segment>);
+        void RemoveSegments(std::vector<Segment>);
+        std::vector<Segment> TouchingSegments(std::vector<Segment>);
+        void DropSegments(std::vector<Segment>);
         /**
          * Generate random location on the top row where row = 0
          * DISCLAIMER: Need to check for overlapping tiles before spawning new piece
@@ -63,20 +79,21 @@ namespace mylibrary {
          * Keeps track of GameOver(), piece collisions, removing a full row.
          */
         std::vector<Location> GetCurrentOccupiedTiles();
-        /**
-         * Removes a full row.
-         */
-        void RemoveRow(int);
-        bool GameOver();
-        int RandomInt(int, int);
+         bool GameOver();
+         size_t GetScore();
+         int RandomInt(int, int);
+
 
     private:
         const size_t width_;
         const size_t height_;
         std::vector<Segment> * current_piece_;
-        std::vector<Segment> all_pieces_;
+        std::vector<Segment> all_pieces;
         Direction direction_;
+        Rotation rotation_;
         std::random_device rd_;
+        size_t score_;
+        int difficulty_;
     };
 }
 #endif //FINALPROJECT_ENGINE_H

@@ -15,6 +15,7 @@ namespace mylibrary {
         Location SetLocation(const Location&);
         Color GetColor();
         Color SetColor(Color);
+        bool Touches(Segment rhs);
 
     private:
         Location location_;
