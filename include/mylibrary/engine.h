@@ -26,9 +26,13 @@ namespace mylibrary {
          */
         Engine(size_t width, size_t height);
         /**
-         * Executes a time step: moves the current piece and spawns in new pieces.
+         * Executes a time step: moves the current piece, spawns in new pieces, and prevents collisions.
          */
         void Step();
+        /**
+         * Checks if the current piece is touching bottom, if so, spawn in a new piece.
+         */
+        bool IsTouchingBottom();
         /**
          * Start the Game Over.
          */
@@ -44,10 +48,7 @@ namespace mylibrary {
 
         std::vector<Segment> GetCurrentPiece() const;
 
-        /**
-             * Checks if the current piece is touching bottom, if so, spawn in a new piece.
-             */
-        bool IsTouchingBottom();
+        std::vector<std::vector<Segment>> GetAllPieces() const;
 
     private:
         /**
@@ -72,7 +73,7 @@ namespace mylibrary {
     private:
         const size_t width_;
         const size_t height_;
-        std::vector<Segment> current_piece_;
+        std::vector<Segment> * current_piece_;
         std::vector<std::vector<Segment>> all_pieces_;
         Direction direction_;
         std::random_device rd_;

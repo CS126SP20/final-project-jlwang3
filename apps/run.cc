@@ -12,9 +12,9 @@ using cinder::app::RendererGl;
 
 namespace myapp {
 
-    DEFINE_uint32(width, 5, "the number of tiles in each row");
+    DEFINE_uint32(width, 10, "the number of tiles in each row");
     DEFINE_uint32(height,20,"the number of tiles in each column");
-    DEFINE_uint32(tilesize, 50, "the size of each tile");
+    DEFINE_uint32(tilesize, 40, "the size of each tile");
     DEFINE_uint32(speed, 200, "the speed (delay) of the game");
     DEFINE_string(name, "CS126SP20", "the name of the player");
 

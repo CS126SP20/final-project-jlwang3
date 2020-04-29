@@ -49,10 +49,22 @@ void MyApp::update() {
 void MyApp::draw() {
     cinder::gl::enableAlphaBlending();
     cinder::gl::clear();
-    DrawPiece();
+    DrawPieces();
 }
 
-    void MyApp::DrawPiece() const {
+    void MyApp::DrawPieces() const {
+        for (int i = 0; i < engine_.GetAllPieces().size(); ++i) {
+            for (int j = 0; j < engine_.GetAllPieces()[i].size(); ++j) {
+                const mylibrary::Location loc = engine_.GetAllPieces()[i][j].GetLocation();
+                if (engine_.GetAllPieces()[i][j].GetColor() == mylibrary::red) cinder::gl::color(ColorA(1,0,0));
+                if (engine_.GetAllPieces()[i][j].GetColor() == mylibrary::green) cinder::gl::color(ColorA(0,1,0));
+                if (engine_.GetAllPieces()[i][j].GetColor() == mylibrary::blue) cinder::gl::color(ColorA(0,0,1));
+                cinder::gl::drawSolidRect(Rectf(tile_size_ * loc.Row(),
+                                                tile_size_ * loc.Col(),
+                                                tile_size_ * loc.Row() + tile_size_,
+                                                tile_size_ * loc.Col() + tile_size_));
+            }
+        }
         for (int i = 0; i < engine_.GetCurrentPiece().size(); ++i) {
             const mylibrary::Location loc = engine_.GetCurrentPiece()[i].GetLocation();
             if (engine_.GetCurrentPiece()[i].GetColor() == mylibrary::red) cinder::gl::color(ColorA(1,0,0));

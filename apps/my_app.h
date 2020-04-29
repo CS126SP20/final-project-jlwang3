@@ -33,7 +33,7 @@ class MyApp : public cinder::app::App {
   void keyUp(cinder::app::KeyEvent) override;
 
 private:
-  void DrawPiece() const;
+  void DrawPieces() const;
   void ResetGame();
 
 private:
