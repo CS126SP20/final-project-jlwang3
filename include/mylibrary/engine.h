@@ -35,6 +35,11 @@ namespace mylibrary {
          */
         bool IsTouchingBottom();
         /**
+         * Checks if the current piece is touching either side.
+         */
+        bool IsTouchingRightSide();
+        bool IsTouchingLeftSide();
+        /**
          * Checks if there are sufficient touches between same color pieces.
          * Removes them if so,
          * and drops remaining pieces.
@@ -87,7 +92,8 @@ namespace mylibrary {
          * Keeps track of GameOver(), piece collisions, removing a full row.
          */
         std::vector<Location> GetCurrentOccupiedTiles();
-         bool GameOver();
+         void RotateClockwise(std::vector<Segment> *);
+         void RotateCounterClockwise(std::vector<Segment> *);
          size_t GetScore();
          int RandomInt(int, int);
 
