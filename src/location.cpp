@@ -74,6 +74,12 @@ namespace mylibrary {
         return false;
     }
 
+    bool Location::IsOutOfBounds(const Location &rhs) const {
+        if (rhs.row_ == 0 || rhs.col_ == 0)  return true;
+        if (row_ < 0 || col_ < 0 || row_ >= rhs.row_ || col_ >= rhs.col_) return true;
+        return false;
+    }
+
     std::ostream& operator<<(std::ostream& os, const Location& location) {
         os << "{row=" << location.Row() << ", col=" << location.Col() << "}";
         return os;

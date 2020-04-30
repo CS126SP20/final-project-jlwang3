@@ -78,7 +78,7 @@ TEST_CASE("Getters and Setters") {
     REQUIRE(test_segment_.GetLocation() == origin_);
     REQUIRE(test_segment_.GetColor() == mylibrary::blue);
 
-    test_segment_.SetLocation(mylibrary::Location (-10,-3));
+    test_segment_.SetLocation(mylibrary::Location(-10, -3), 0);
     test_segment_.SetColor(mylibrary::blue);
 
     REQUIRE(test_segment_.GetLocation() == mylibrary::Location(-10,-3));
@@ -105,4 +105,21 @@ TEST_CASE("Touches Method") {
     REQUIRE(!test_segment_.Touches(mylibrary::Segment(mylibrary::Location(-1,-9), mylibrary::red)));
     REQUIRE(!test_segment_.Touches(mylibrary::Segment(mylibrary::Location(10,1), mylibrary::blue)));
     REQUIRE(!test_segment_.Touches(mylibrary::Segment(mylibrary::Location(8,-1), mylibrary::red)));
+}
+
+TEST_CASE("Out of Bounds") {
+    mylibrary::Location origin_(0,0);
+    REQUIRE(origin_.IsOutOfBounds(mylibrary::Location(1,0)));
+    REQUIRE(origin_.IsOutOfBounds(mylibrary::Location(0,1)));
+    REQUIRE(!origin_.IsOutOfBounds(mylibrary::Location(1,1)));
+
+    mylibrary::Location one_by_one_(1,1);
+    REQUIRE(mylibrary::Location(10,0).IsOutOfBounds(one_by_one_));
+    REQUIRE(mylibrary::Location(-7,-1).IsOutOfBounds(one_by_one_));
+    REQUIRE(mylibrary::Location(200,470).IsOutOfBounds(one_by_one_));
+
+    mylibrary::Location ten_by_ten_(10,10);
+    REQUIRE(!mylibrary::Location(9,0).IsOutOfBounds(ten_by_ten_));
+    REQUIRE(mylibrary::Location(-7,-1).IsOutOfBounds(ten_by_ten_));
+    REQUIRE(mylibrary::Location(200,470).IsOutOfBounds(ten_by_ten_));
 }

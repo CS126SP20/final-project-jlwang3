@@ -67,6 +67,10 @@ namespace mylibrary {
 
         std::vector<Segment> GetAllPieces() const;
 
+        size_t GetScore();
+
+        bool GameOver();
+
     private:
         /**
          * Each pair of touching segments counts as a touch.
@@ -87,15 +91,13 @@ namespace mylibrary {
         Location GetRandomLocation();
         Color GetRandomColor();
         Piece GetRandomPieceType();
-        /**
-         * Very Important!
-         * Keeps track of GameOver(), piece collisions, removing a full row.
-         */
+
         std::vector<Location> GetCurrentOccupiedTiles();
-         void RotateClockwise(std::vector<Segment> *);
+
+        void RotateClockwise(std::vector<Segment> *);
          void RotateCounterClockwise(std::vector<Segment> *);
-         size_t GetScore();
-         int RandomInt(int, int);
+
+        int RandomInt(int, int);
 
 
     private:

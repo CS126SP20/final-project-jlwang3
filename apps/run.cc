@@ -12,7 +12,7 @@ using cinder::app::RendererGl;
 
 namespace myapp {
 
-    DEFINE_uint32(difficulty, 10, "difficulty level");
+    DEFINE_uint32(difficulty, 40, "difficulty level");
     DEFINE_uint32(width, 10, "the number of tiles in each row");
     DEFINE_uint32(height,20,"the number of tiles in each column");
     DEFINE_uint32(tilesize, 40, "the size of each tile");

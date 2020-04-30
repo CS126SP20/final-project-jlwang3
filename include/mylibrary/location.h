@@ -20,6 +20,7 @@ namespace mylibrary {
         bool operator>(const Location& rhs) const;
         bool operator>=(const Location& rhs) const;
         bool Touches(const Location& rhs) const;
+        bool IsOutOfBounds(const Location& rhs) const;
 
         // Vector operators.
         Location operator+(const Location& rhs) const;

@@ -146,7 +146,7 @@ namespace mylibrary {
 
     bool mylibrary::Engine::IsTouchingBottom() {
         for (auto & i : *current_piece_) {
-            if (i.GetLocation().Col() == height_ - 2) return true;
+            if (i.GetLocation().Col() == height_ - 1) return true;
             for (auto & all_piece : all_pieces) {
                 if (i.GetLocation().Col() == all_piece.GetLocation().Col() - 1
                 && i.GetLocation().Row() == all_piece.GetLocation().Row()) return true;
@@ -166,8 +166,8 @@ namespace mylibrary {
     }
 
     mylibrary::Location mylibrary::Engine::GetRandomLocation() {
-        int corresponding_location_ = RandomInt(2,width_ - 1);
-        return mylibrary::Location(corresponding_location_ - 1,-1);
+        int corresponding_location_ = RandomInt(0,width_ - 3);
+        return mylibrary::Location(corresponding_location_,0);
     }
 
     mylibrary::Color mylibrary::Engine::GetRandomColor() {
@@ -202,6 +202,7 @@ namespace mylibrary {
         current_piece_ = {};
         all_pieces = {};
         NewPiece();
+        score_ = 0;
     }
 
     std::vector<mylibrary::Segment> mylibrary::Engine::GetAllPieces() const {
@@ -272,6 +273,13 @@ namespace mylibrary {
                 if (piece.GetLocation().Row() == i) remaining_pieces_[i].push_back(piece);
             }
         }
+        for (int i = 0; i < width_; ++i) {
+            int count = height_ - 1;
+            for (auto &segment : remaining_pieces_[i]) {
+                segment.SetLocation(Location(segment.GetLocation().Row(), count));
+                --count;
+            }
+        }
     }
 
     bool mylibrary::Engine::IsTouchingRightSide() {
@@ -302,10 +310,15 @@ namespace mylibrary {
                 if (next == square.GetLocation()) ++can_rotate_ ;
             }
         }
+        for (Segment &block : * current_piece) {
+            Location next = (mylibrary::Location(-(block.GetLocation() - c_loc).Col(), (block.GetLocation() - c_loc).Row()) +
+                             c_loc);
+            if (next.IsOutOfBounds(Location(width_,height_))) ++can_rotate_;
+        }
         if (can_rotate_ == 0) {
             for (Segment &block : * current_piece) {
                 Location next = (mylibrary::Location(-(block.GetLocation() - c_loc).Col(), (block.GetLocation() - c_loc).Row()) +
-                                 c_loc) % Location(width_, height_);
+                                 c_loc);
                 block.SetLocation(next);
             }
         }
@@ -325,13 +338,24 @@ namespace mylibrary {
                 if (next == square.GetLocation()) ++can_rotate_;
             }
         }
+        for (Segment &block : * current_piece) {
+            Location next = (mylibrary::Location(-(block.GetLocation() - c_loc).Col(), (block.GetLocation() - c_loc).Row()) +
+                             c_loc);
+            if (next.IsOutOfBounds(Location(width_,height_))) ++can_rotate_;
+        }
         if (can_rotate_ == 0) {
             for (Segment &block : *current_piece) {
-                Location next = (mylibrary::Location(-(block.GetLocation() - c_loc).Col(),
-                                                     (block.GetLocation() - c_loc).Row()) +
-                                 c_loc) % Location(width_, height_);
+                Location next = (mylibrary::Location(-(block.GetLocation() - c_loc).Col(), (block.GetLocation() - c_loc).Row()) +
+                                 c_loc);
                 block.SetLocation(next);
             }
         }
+    }
+
+    bool Engine::GameOver() {
+        for (auto &segment : all_pieces) {
+            if (segment.GetLocation().Col() == 1) return true;
+        }
+        return false;
     }
 }
