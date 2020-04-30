@@ -100,4 +100,9 @@ TEST_CASE("Touches Method") {
     REQUIRE(test_segment_.Touches(mylibrary::Segment(mylibrary::Location(-1,0), mylibrary::red)));
     REQUIRE(test_segment_.Touches(mylibrary::Segment(mylibrary::Location(0,1), mylibrary::blue)));
     REQUIRE(test_segment_.Touches(mylibrary::Segment(mylibrary::Location(0,-1), mylibrary::red)));
+
+    REQUIRE(!test_segment_.Touches(mylibrary::Segment(mylibrary::Location(2,0), mylibrary::green)));
+    REQUIRE(!test_segment_.Touches(mylibrary::Segment(mylibrary::Location(-1,-9), mylibrary::red)));
+    REQUIRE(!test_segment_.Touches(mylibrary::Segment(mylibrary::Location(10,1), mylibrary::blue)));
+    REQUIRE(!test_segment_.Touches(mylibrary::Segment(mylibrary::Location(8,-1), mylibrary::red)));
 }

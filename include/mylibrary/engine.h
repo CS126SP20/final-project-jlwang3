@@ -63,10 +63,18 @@ namespace mylibrary {
         std::vector<Segment> GetAllPieces() const;
 
     private:
-        int NumberOfTouches(std::vector<Segment>);
-        void RemoveSegments(std::vector<Segment>);
-        std::vector<Segment> TouchingSegments(std::vector<Segment>);
-        void DropSegments(std::vector<Segment>);
+        /**
+         * Each pair of touching segments counts as a touch.
+         */
+        static int NumberOfTouches(std::vector<Segment>);
+        /**
+         * Removes the given segments from the all_pieces_ vector.
+         */
+        void RemoveSegments(Color color);
+        /**
+         * This method drops all the remaining pieces.
+         */
+        void DropAllPieces();
         /**
          * Generate random location on the top row where row = 0
          * DISCLAIMER: Need to check for overlapping tiles before spawning new piece
